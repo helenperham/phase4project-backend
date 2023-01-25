@@ -11,7 +11,7 @@ class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(50), unique=True, nullable=False)
   email = db.Column(db.String(50), unique=True, nullable=False)
-  password = db.Column(db.String(50), unique=True, nullable=False)
+  password = db.Column(db.String(50), nullable=False)
   created_at = db.Column(db.DateTime, server_default=db.func.now())
   updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
@@ -28,11 +28,15 @@ class User(db.Model):
         'password':self.password
       }
 
+  def __repr__(self):
+      return '<User %r>' % self.name
+
+
 class Photo(db.Model):
   __tablename__ = 'photos'
   id = db.Column(db.Integer, primary_key=True)
-  caption = db.Column(db.String(50), unique=True, nullable=False)
-  user_id = db.Comumn(db.Integer, nullable=False)
+  caption = db.Column(db.String(50), nullable=False)
+  user_id = db.Column(db.Integer, nullable=False)
 
   def __init__(self, caption, user_id):
     self.caption = caption
@@ -45,3 +49,5 @@ class Photo(db.Model):
       'user_id' : self.user_id
     }
 
+  def __repr__(self):
+    return '<Photo %r>' % self.name

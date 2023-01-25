@@ -8,10 +8,10 @@ from models import db
 
 app = Flask(__name__, static_folder='public')
 CORS(app, origins=['*'])
-app.config.from_object(config)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///development.sqlite3'
+
 db.init_app(app)
 migrate = Migrate(app, db)
-
 
 @app.route("/")
 def hello():
