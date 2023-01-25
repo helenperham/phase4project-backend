@@ -2,13 +2,13 @@ import os
 from flask import Flask, send_file, request, jsonify
 from flask_migrate import Migrate
 from flask_cors import CORS
-from Config import Config
+import config
 
 from models import db
 
 app = Flask(__name__, static_folder='public')
 CORS(app, origins=['*'])
-app.config.from_object(Config)
+app.config.from_object(config)
 db.init_app(app)
 migrate = Migrate(app, db)
 
